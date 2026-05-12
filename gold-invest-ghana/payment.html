@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment - GoldInvest Ghana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark fw-bold">Complete Your Deposit</div>
+                    <div class="card-body">
+                        <div class="alert alert-info">Amount to Invest: <strong id="amountDisplay">₵0</strong></div>
+                        <h5>1. Select Network</h5>
+                        <div class="btn-group w-100 mb-3" role="group">
+                            <button class="btn btn-outline-dark network-btn" data-network="MTN">MTN</button>
+                            <button class="btn btn-outline-dark network-btn" data-network="Telecel">Telecel</button>
+                            <button class="btn btn-outline-dark network-btn" data-network="AirtelTigo">AirtelTigo</button>
+                        </div>
+                        <div id="paymentDetails" class="d-none">
+                            <p>Pay to Mobile Money number: <strong class="text-warning">0202666033</strong></p>
+                            <p>Reference: Your phone number</p>
+                        </div>
+                        <hr>
+                        <h5>2. Upload Payment Proof</h5>
+                        <form id="paymentProofForm">
+                            <input type="hidden" id="depositAmount">
+                            <div class="mb-3">
+                                <label>Account Number (MoMo)</label>
+                                <input type="text" class="form-control" id="accountNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Account Name</label>
+                                <input type="text" class="form-control" id="accountName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Screenshot (optional but recommended)</label>
+                                <input type="file" class="form-control" id="screenshot" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Submit Deposit Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/payment.js"></script>
+</body>
+</html>

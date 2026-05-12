@@ -1,0 +1,58 @@
+/* Gold animations and custom styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.hero-section {
+    background: linear-gradient(135deg, #1e3c2c 0%, #2a4a35 100%);
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1507679799987-c73734587d2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1351&q=80') center/cover;
+    opacity: 0.3;
+}
+.gold-text {
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+.stat-card {
+    background: white;
+    border-radius: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+}
+.gold-gradient-bg {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+.action-card {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.action-card:hover {
+    background: #f8f9fa;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.bg-gradient-gold {
+    background: linear-gradient(145deg, #f9e7b3, #f5c542);
+    color: #2c2c2c;
+}
+.invest-card {
+    border: 2px solid #FFD700;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+.invest-card:hover {
+    background: #fff8e7;
+    transform: scale(1.02);
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GoldInvest Ghana | Elite Signup</title>
+    
+    <!-- Bootstrap & Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(135deg, #e6b422, #f7d44a, #d4af37, #f9e79f, #b8860b);
+            --bg-deep: #0a0f1c;
+            --card-bg: rgba(10, 18, 28, 0.68);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- PREMIUM GOLD BACKGROUND (ONLINE GOLD IMAGE + DYNAMIC OVERLAY) --- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(125deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.5) 100%),
+                        url('https://cdn.pixabay.com/photo/2016/09/25/18/43/gold-1694953_1280.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: all 0.5s ease;
+        }
+
+        .animated-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* FLOATING GOLDEN DUST PARTICLES */
+        .gold-particle {
+            position: absolute;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            opacity: 0.45;
+            filter: blur(3px);
+            animation: float-particles 22s linear infinite;
+            z-index: -1;
+            box-shadow: 0 0 6px rgba(255,215,0,0.6);
+        }
+
+        @keyframes float-particles {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* --- SIGNUP CARD - LUXURY GLASS MORPH --- */
+        .signup-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(215, 175, 55, 0.45);
+            border-radius: 48px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.1) inset;
+            padding: 45px 40px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .signup-card:hover {
+            border-color: #f5c542;
+            box-shadow: 0 45px 90px rgba(0,0,0,0.7), 0 0 30px rgba(255, 215, 0, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* Input groups */
+        .input-group {
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 200, 80, 0.35);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.25s linear;
+        }
+
+        .input-group:focus-within {
+            border-color: #ffd966;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 12px rgba(255, 200, 50, 0.3);
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: none;
+            color: #f5bc42;
+            font-size: 1.2rem;
+            padding-left: 20px;
+        }
+
+        .form-control {
+            background: transparent !important;
+            border: none !important;
+            color: white !important;
+            padding: 14px 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 245, 200, 0.6);
+            font-weight: 400;
+        }
+
+        /* BUTTON - OPULENT GOLD */
+        .btn-register {
+            background: var(--gold-gradient);
+            border: none;
+            color: #0a1a2a;
+            font-weight: 800;
+            border-radius: 40px;
+            padding: 16px 20px;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 0 18px 35px rgba(218, 165, 32, 0.5);
+            color: #000000;
+            filter: brightness(1.02);
+        }
+
+        /* Header icon animation */
+        .header-icon {
+            display: inline-block;
+            animation: radiantGlow 2.6s ease-in-out infinite;
+        }
+
+        @keyframes radiantGlow {
+            0% { filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 2px #e6b422); transform: scale(1);}
+            50% { filter: drop-shadow(0 0 18px #ffd966) drop-shadow(0 0 6px #fbffb9); transform: scale(1.07);}
+            100% { filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 2px #e6b422); transform: scale(1);}
+        }
+
+        /* --- NEW: ALREADY LOGIN LINK STYLES --- */
+        .already-login-link {
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffde9e;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border-bottom: 1px solid transparent;
+        }
+        .already-login-link:hover {
+            color: #ffe6b3;
+            text-shadow: 0 0 6px rgba(255,215,0,0.6);
+            border-bottom-color: #f5c542;
+            transform: translateY(-1px);
+        }
+
+        /* responsiveness */
+        @media (max-width: 768px) {
+            .signup-card {
+                padding: 35px 25px;
+                border-radius: 36px;
+            }
+            .btn-register {
+                padding: 14px;
+                font-size: 0.9rem;
+            }
+            .gold-text {
+                font-size: 2rem;
+            }
+        }
+
+        .custom-link {
+            transition: 0.2s;
+            position: relative;
+        }
+        .custom-link:hover {
+            text-shadow: 0 0 5px #ffd966;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND CONTAINER: LIVE GOLD IMAGE + PARTICLES -->
+    <div class="animated-bg" id="particle-container"></div>
+
+    <div class="container h-100 d-flex align-items-center justify-content-center py-5">
+        <div class="row w-100 justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                
+                <!-- LUXURY SIGNUP CARD -->
+                <div class="signup-card" data-aos="zoom-in-up" data-aos-duration="900">
+                    
+                    <div class="text-center mb-4">
+                        <div class="header-icon mb-3">
+                            <i class="fas fa-gem fa-4x" style="color: #eebb33; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));"></i>
+                        </div>
+                        <h2 class="gold-text h1" style="font-size: 2.8rem;">GOLD<span style="background: none; -webkit-text-fill-color: #f7e05e;">INVEST</span></h2>
+                        <p class="text-light-emphasis opacity-75 small mt-2">Secure your future with Ghana's premium gold vault</p>
+                    </div>
+
+                    <form id="signupForm">
+                        <div class="mb-3" data-aos="fade-up" data-aos-delay="100">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                <input type="tel" class="form-control" id="phone" placeholder="Phone Number (e.g. +233 XX XXX XXXX)" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" data-aos="fade-up" data-aos-delay="180">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
+                                <input type="text" class="form-control" id="username" placeholder="Preferred Username" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" data-aos="fade-up" data-aos-delay="260">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control" id="password" placeholder="Create Password" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4" data-aos="fade-up" data-aos-delay="340">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-trophy"></i></span>
+                                <input type="text" class="form-control" id="inviteCode" placeholder="Invitation Code (optional)">
+                            </div>
+                            <div class="form-text text-end mt-1">
+                                <small class="text-warning opacity-75"><i class="fas fa-star-of-life"></i> Referral unlocks bonus gold grams</small>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-register w-100 mb-3" data-aos="fade-up" data-aos-delay="420">
+                            <i class="fas fa-crown me-2"></i> CREATE ACCOUNT <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+
+                        <!-- ✅ ADDED "ALREADY LOGIN" TEXT LINK (CLEAR & CLICKABLE) -->
+                        <div class="text-center mt-2" data-aos="fade-up" data-aos-delay="480">
+                            <a href="login.html" class="already-login-link">
+                                <i class="fas fa-sign-in-alt me-1"></i> Already have an account? <strong>Login</strong>
+                            </a>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3" data-aos="fade-up" data-aos-delay="550">
+                        <p class="small text-white-50">Already part of the golden circle? 
+                            <a href="#" class="text-warning text-decoration-none fw-bold custom-link">Sign In</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4" data-aos="fade-in" data-aos-delay="580">
+                    <p class="small opacity-60 text-light">
+                        <i class="fas fa-shield-hart me-1"></i> 256-bit SSL secured by GGB | Gold Reserve Member
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({ 
+            duration: 800, 
+            once: true,
+            easing: 'ease-out-quad'
+        });
+
+        // Generate golden floating dust particles
+        const particleContainer = document.getElementById('particle-container');
+        if (particleContainer) {
+            for (let i = 0; i < 35; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'gold-particle';
+                const size = Math.random() * 7 + 3 + 'px';
+                particle.style.width = size;
+                particle.style.height = size;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = 12 + Math.random() * 18 + 's';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.opacity = Math.random() * 0.55 + 0.2;
+                particle.style.background = 'linear-gradient(145deg, #f9e076, #c9a03d, #eabf4b)';
+                particle.style.filter = 'blur(2.5px)';
+                particleContainer.appendChild(particle);
+            }
+        }
+
+
+    </script>
+
+    <!-- extra style refinement -->
+    <style>
+        .input-group .form-control:-webkit-autofill,
+        .input-group .form-control:-webkit-autofill:focus {
+            transition: background-color 600000s 0s, color 600000s 0s;
+            -webkit-text-fill-color: white !important;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e1a28;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #d6af36, #f5cb5c);
+            border-radius: 15px;
+        }
+        body {
+            background: #070c14;
+        }
+        .animated-bg {
+            transition: transform 0.2s;
+        }
+        @media (max-width: 640px) {
+            .signup-card {
+                backdrop-filter: blur(16px);
+            }
+            .gold-particle {
+                opacity: 0.3;
+            }
+        }
+        .btn-register:active {
+            transform: scale(0.98);
+        }
+        .gold-text {
+            background: linear-gradient(125deg, #f0cd5f, #d4ac33, #ffea9e, #b37b2e);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .form-text small i {
+            margin-right: 4px;
+        }
+    </style>
+
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>

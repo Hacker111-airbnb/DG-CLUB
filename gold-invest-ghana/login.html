@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GoldInvest Ghana | Animated Login</title>
+    
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Your existing CSS (keep as is) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold-primary: #d4af37;
+            --gold-light: #f5e18b;
+            --gold-dark: #b8860b;
+            --gold-gradient: linear-gradient(135deg, #e6c15c, #f9e4a2, #d4af37, #fae373, #b77c1a);
+            --bg-deep: #0a0f1c;
+            --card-glass: rgba(8, 14, 22, 0.68);
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #0a0e17;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(115deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.5) 100%),
+                        url('https://cdn.pixabay.com/photo/2015/09/16/20/16/gold-942708_1280.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: slowZoom 22s infinite alternate ease-in-out;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .gold-particle {
+            position: absolute;
+            background: radial-gradient(circle, #f9d976, #e8bc3c);
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(2px);
+            animation: floatParticles 18s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes floatParticles {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .login-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 48px;
+            box-shadow: 0 35px 75px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.2) inset;
+            transition: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1.1);
+            animation: cardGlideUp 0.9s cubic-bezier(0.15, 0.85, 0.35, 1.05) forwards;
+            opacity: 0;
+            transform: translateY(35px);
+        }
+
+        @keyframes cardGlideUp {
+            0% { opacity: 0; transform: translateY(45px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card:hover {
+            border-color: #f5cb5c;
+            box-shadow: 0 40px 85px rgba(0,0,0,0.6), 0 0 28px rgba(255, 200, 50, 0.3);
+            transform: translateY(-6px);
+        }
+
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .input-group-custom {
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .input-group-custom:focus-within {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 16px rgba(212, 175, 55, 0.45);
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.01);
+        }
+
+        .input-icon {
+            background: transparent;
+            border: none;
+            color: #f0c45a;
+            font-size: 1.2rem;
+            padding-left: 20px;
+        }
+
+        .form-input {
+            background: transparent !important;
+            border: none !important;
+            color: white !important;
+            padding: 14px 12px;
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 245, 190, 0.65);
+        }
+
+        .btn-gold-login {
+            background: var(--gold-gradient);
+            border: none;
+            color: #0f1a24;
+            font-weight: 800;
+            border-radius: 40px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            letter-spacing: 1.8px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold-login::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,210,0.5) 0%, rgba(255,215,0,0) 80%);
+            transform: rotate(25deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .btn-gold-login:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+            color: #000000;
+            letter-spacing: 2.2px;
+        }
+
+        .btn-gold-login:hover::before {
+            opacity: 1;
+            left: 100%;
+            transition: 0.9s;
+        }
+
+        .animated-link {
+            color: #f3cd81;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .animated-link:hover {
+            color: #ffea9e;
+            text-shadow: 0 0 8px #ffd966;
+        }
+
+        .floating-icon {
+            animation: floatIcon 2.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes floatIcon {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .shine-effect {
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.25), transparent);
+            background-size: 200% 100%;
+            animation: shimmerMove 3s infinite;
+        }
+
+        @keyframes shimmerMove {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @media (max-width: 576px) {
+            .login-card { padding: 2rem 1.5rem !important; border-radius: 32px; }
+            .btn-gold-login { font-size: 0.85rem; }
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: 8px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animated-bg" id="particleCanvas"></div>
+
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+        <div class="row w-100 justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-card p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <div class="floating-icon mb-3">
+                            <i class="fas fa-coins fa-4x" style="color: #eabf4b; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));"></i>
+                        </div>
+                        <h2 class="gold-text fw-bold display-6">GoldInvest</h2>
+                        <p class="text-light-emphasis opacity-75 small mt-2">Secure access to your gold portfolio</p>
+                        <div class="mx-auto mt-2 shine-effect" style="height: 2px; width: 70px; background: #d4af37; border-radius: 2px;"></div>
+                    </div>
+
+                    <form id="animatedLoginForm">
+                        <div class="mb-3" data-aos="fade-up" data-aos-delay="100">
+                            <label class="form-label text-light"><i class="fas fa-phone-alt me-1 text-warning"></i> Phone Number</label>
+                            <div class="input-group-custom d-flex align-items-center">
+                                <span class="input-icon"><i class="fas fa-mobile-alt"></i></span>
+                                <input type="tel" class="form-control form-input" id="loginPhone" placeholder="+233 XX XXX XXXX" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <label class="form-label text-light"><i class="fas fa-lock me-1 text-warning"></i> Password</label>
+                            <div class="input-group-custom d-flex align-items-center">
+                                <span class="input-icon"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control form-input" id="loginPassword" placeholder="••••••••" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold-login w-100 py-2 fw-bold" id="loginBtn" data-aos="fade-up" data-aos-delay="300">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+
+                        <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="400">
+                            <p class="small text-white-50">Don't have an account? 
+                                <a href="signup.html" class="animated-link fw-bold">Sign Up <i class="fas fa-gem ms-1"></i></a>
+                            </p>
+                        </div>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <small class="text-secondary-emphasis"><i class="fas fa-shield-alt text-warning me-1"></i> Protected by Gold Standard Vault</small>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4" data-aos="fade-in" data-aos-delay="550">
+                    <p class="small opacity-75 text-light">
+                        <i class="fas fa-fingerprint me-1 text-warning"></i> 2FA Ready · SSL Encrypted
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL AUTHENTICATION SCRIPTS (REMOVED FAKE SIMULATION) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+    <!-- Only particle effect – no fake login handler -->
+    <script>
+        AOS.init({ duration: 700, once: true, easing: 'ease-out-sine' });
+
+        const bgContainer = document.getElementById('particleCanvas');
+        function createGoldParticles() {
+            for (let i = 0; i < 55; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('gold-particle');
+                const size = Math.random() * 8 + 3 + 'px';
+                particle.style.width = size;
+                particle.style.height = size;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = 10 + Math.random() * 25 + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.opacity = Math.random() * 0.55 + 0.2;
+                particle.style.filter = 'blur(3px)';
+                particle.style.background = `radial-gradient(circle, #ffdf8c, #c99f2e)`;
+                bgContainer.appendChild(particle);
+            }
+        }
+        createGoldParticles();
+
+        // Optional: input glow effect (keeps visual)
+        const allInputGroups = document.querySelectorAll('.input-group-custom');
+        allInputGroups.forEach(group => {
+            const inputField = group.querySelector('input');
+            if (inputField) {
+                inputField.addEventListener('focus', () => {
+                    group.style.boxShadow = '0 0 13px rgba(212, 175, 55, 0.7)';
+                });
+                inputField.addEventListener('blur', () => {
+                    group.style.boxShadow = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
