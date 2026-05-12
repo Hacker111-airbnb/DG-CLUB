@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - GoldInvest Ghana</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold-primary: #ffcc00;
+            --gold-dark: #e6b422;
+            --text-dark: #2c1a0a;
+        }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #fef7e0; 
+            overflow-x: hidden; 
+        }
+        .navbar {
+            background: rgba(255, 245, 180, 0.95) !important; 
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid #e6b422; 
+            padding: 12px 0;
+        }
+        .navbar-brand {
+            font-weight: 800; 
+            background: linear-gradient(135deg, #b8860b, #ffcc33, #e6b422);
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+        }
+        .admin-container {
+            margin-top: 100px;
+            padding: 20px;
+        }
+        .admin-header {
+            background: linear-gradient(135deg, #ffcc33, #e6b422);
+            color: #2c1a0a;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(230, 180, 34, 0.3);
+        }
+        .admin-card {
+            background: rgba(255, 252, 225, 0.9);
+            border: 1px solid #e6b422;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .deposit-item {
+            background: white;
+            border: 1px solid #e6b422;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .deposit-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 180, 34, 0.2);
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-declined {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .btn-approve {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-approve:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        }
+        .btn-decline {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            border: none;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-decline:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+        .screenshot-container {
+            margin-top: 10px;
+        }
+        .screenshot-container img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            border: 2px solid #e6b422;
+            cursor: pointer;
+        }
+        .modal-content {
+            background: rgba(255, 252, 225, 0.95);
+            border: 1px solid #e6b422;
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #ffcc33, #e6b422);
+            color: #2c1a0a;
+            border-bottom: 1px solid #e6b422;
+        }
+        .btn-logout {
+            background: rgba(230, 180, 34, 0.2);
+            border: 1px solid #e6b422;
+            color: #5a3e0b;
+            border-radius: 30px;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        .btn-logout:hover {
+            background: #e6b422;
+            color: #2c1a0a;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.2), rgba(230, 180, 34, 0.2));
+            border: 1px solid #e6b422;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-box h3 {
+            color: #b8860b;
+            font-weight: 800;
+        }
+        .stat-box p {
+            color: #5a3e0b;
+            margin: 0;
+        }
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e6b422;
+            padding-bottom: 10px;
+        }
+        .tabs-nav button {
+            background: rgba(255, 245, 200, 0.5);
+            border: 1px solid #e6b422;
+            color: #5a3e0b;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tabs-nav button.active {
+            background: linear-gradient(135deg, #ffcc33, #e6b422);
+            color: #2c1a0a;
+        }
+        .tabs-nav button:hover {
+            background: rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-crown text-dark me-2"></i>GoldInvest Admin</a>
+            <div>
+                <button class="btn btn-logout btn-sm px-4" id="logoutBtn"><i class="fas fa-sign-out-alt me-1"></i> Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-sliders-h me-2"></i>Admin Control Panel</h1>
+            <p class="mb-0">Manage deposits, approve/decline payments, and monitor platform</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h3 id="totalUsers">0</h3>
+                <p>👥 Total Users</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="pendingDeposits">0</h3>
+                <p>⏳ Pending Deposits</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="approvedDeposits">0</h3>
+                <p>✅ Approved Deposits</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="totalDeposited">₵0</h3>
+                <p>💰 Total Deposited</p>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-nav">
+            <button class="nav-tab-btn active" data-tab="pending">
+                <i class="fas fa-hourglass-half me-1"></i> Pending Deposits
+            </button>
+            <button class="nav-tab-btn" data-tab="approved">
+                <i class="fas fa-check-circle me-1"></i> Approved Deposits
+            </button>
+            <button class="nav-tab-btn" data-tab="declined">
+                <i class="fas fa-times-circle me-1"></i> Declined Deposits
+            </button>
+            <button class="nav-tab-btn" data-tab="all-users">
+                <i class="fas fa-users me-1"></i> All Users
+            </button>
+        </div>
+
+        <!-- Pending Deposits Section -->
+        <div class="admin-card tab-content" id="pending" style="display: block;">
+            <h3 class="mb-3"><i class="fas fa-hourglass-half text-warning me-2"></i>Pending Payment Screenshots</h3>
+            <div id="pendingList"></div>
+        </div>
+
+        <!-- Approved Deposits Section -->
+        <div class="admin-card tab-content" id="approved" style="display: none;">
+            <h3 class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>Approved Deposits</h3>
+            <div id="approvedList"></div>
+        </div>
+
+        <!-- Declined Deposits Section -->
+        <div class="admin-card tab-content" id="declined" style="display: none;">
+            <h3 class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i>Declined Deposits</h3>
+            <div id="declinedList"></div>
+        </div>
+
+        <!-- All Users Section -->
+        <div class="admin-card tab-content" id="all-users" style="display: none;">
+            <h3 class="mb-3"><i class="fas fa-users me-2"></i>Platform Users</h3>
+            <div id="usersList"></div>
+        </div>
+    </div>
+
+    <!-- Screenshot Modal -->
+    <div class="modal fade" id="screenshotModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Proof</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="screenshotImage" src="" alt="Payment Proof" style="max-width: 100%; border-radius: 10px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script>
+        // Check if user is admin
+        function checkAdminAccess() {
+            const user = getCurrentUser();
+            if (!user || !user.isAdmin) {
+                alert("❌ Admin access required!");
+                window.location.href = "login.html";
+                return false;
+            }
+            return true;
+        }
+
+        if (!checkAdminAccess()) {
+            throw new Error("Unauthorized access");
+        }
+
+        // Load admin dashboard
+        function loadAdminDashboard() {
+            const deposits = getDeposits();
+            const users = getUsers();
+
+            // Update stats
+            const pending = deposits.filter(d => d.status === 'pending');
+            const approved = deposits.filter(d => d.status === 'approved');
+            document.getElementById('totalUsers').innerText = users.length;
+            document.getElementById('pendingDeposits').innerText = pending.length;
+            document.getElementById('approvedDeposits').innerText = approved.length;
+            const totalDeposited = approved.reduce((sum, d) => sum + d.amount, 0);
+            document.getElementById('totalDeposited').innerText = `₵${totalDeposited.toFixed(2)}`;
+
+            // Load pending deposits with payment screenshots
+            const pendingList = document.getElementById('pendingList');
+            if (pending.length === 0) {
+                pendingList.innerHTML = '<div class="alert alert-info text-center py-4"><i class="fas fa-check-circle"></i> No pending deposits</div>';
+            } else {
+                pendingList.innerHTML = pending.map(deposit => {
+                    const user = users.find(u => u.id === deposit.userId);
+                    return `
+                        <div class="deposit-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="mb-2">
+                                        <i class="fas fa-user text-warning"></i> ${user?.username || user?.phone || 'Unknown User'}
+                                    </h5>
+                                    <p class="mb-1"><strong>Amount:</strong> ₵${deposit.amount}</p>
+                                    <p class="mb-1"><strong>Network:</strong> ${deposit.network}</p>
+                                    <p class="mb-1"><strong>Account:</strong> ${deposit.accountNumber}</p>
+                                    <p class="mb-1"><strong>Name:</strong> ${deposit.accountName}</p>
+                                    <small class="text-muted">📅 ${new Date(deposit.createdAt).toLocaleString()}</small>
+                                </div>
+                                <div class="col-md-6">
+                                    ${deposit.screenshot ? `
+                                        <div class="screenshot-container">
+                                            <p class="small mb-2"><strong>Payment Proof:</strong></p>
+                                            <img src="${deposit.screenshot}" alt="Payment Proof" onclick="viewScreenshot('${deposit.screenshot}')">
+                                        </div>
+                                    ` : '<div class="alert alert-warning small mb-2">No screenshot uploaded</div>'}
+                                    <div class="d-flex gap-2 mt-3">
+                                        <button class="btn btn-approve flex-grow-1" onclick="approveDeposit('${deposit.id}')">
+                                            <i class="fas fa-check me-1"></i>Approve
+                                        </button>
+                                        <button class="btn btn-decline flex-grow-1" onclick="declineDeposit('${deposit.id}')">
+                                            <i class="fas fa-times me-1"></i>Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Load approved deposits
+            const approvedList = document.getElementById('approvedList');
+            if (approved.length === 0) {
+                approvedList.innerHTML = '<div class="alert alert-info text-center py-4">No approved deposits</div>';
+            } else {
+                approvedList.innerHTML = approved.map(deposit => {
+                    const user = users.find(u => u.id === deposit.userId);
+                    return `
+                        <div class="deposit-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-1">✅ ${user?.username || user?.phone}</h5>
+                                    <p class="mb-0"><strong>₵${deposit.amount}</strong> - ${deposit.network}</p>
+                                    <small class="text-muted">📅 ${new Date(deposit.createdAt).toLocaleString()}</small>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <span class="status-badge status-approved">Approved</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Load declined deposits
+            const declined = deposits.filter(d => d.status === 'declined');
+            const declinedList = document.getElementById('declinedList');
+            if (declined.length === 0) {
+                declinedList.innerHTML = '<div class="alert alert-info text-center py-4">No declined deposits</div>';
+            } else {
+                declinedList.innerHTML = declined.map(deposit => {
+                    const user = users.find(u => u.id === deposit.userId);
+                    return `
+                        <div class="deposit-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-1">❌ ${user?.username || user?.phone}</h5>
+                                    <p class="mb-0"><strong>₵${deposit.amount}</strong> - ${deposit.network}</p>
+                                    <small class="text-muted">📅 ${new Date(deposit.createdAt).toLocaleString()}</small>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <span class="status-badge status-declined">Declined</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Load all users
+            const usersList = document.getElementById('usersList');
+            usersList.innerHTML = users.map(user => `
+                <div class="deposit-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-1">👤 ${user.username || user.phone}</h5>
+                            <p class="mb-0"><strong>Phone:</strong> ${user.phone}</p>
+                            <small class="text-muted">Invite Code: ${user.inviteCode}</small>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="mb-0"><strong>Balance:</strong> ₵${user.balance.toFixed(2)}</p>
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <span class="badge bg-success">Joined</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<div class="alert alert-info text-center">No users yet</div>';
+        }
+
+        // Approve deposit and credit user
+        function approveDeposit(depositId) {
+            const deposits = getDeposits();
+            const deposit = deposits.find(d => d.id == depositId);
+            if (!deposit) return;
+
+            deposit.status = 'approved';
+            saveDeposits(deposits);
+
+            // Add balance to user
+            addUserBalance(deposit.userId, deposit.amount);
+
+            alert(`✅ Deposit of ₵${deposit.amount} approved!\nBalance credited to user.`);
+            loadAdminDashboard();
+        }
+
+        // Decline deposit
+        function declineDeposit(depositId) {
+            const reason = prompt("Enter reason for declining:");
+            if (!reason) return;
+
+            const deposits = getDeposits();
+            const deposit = deposits.find(d => d.id == depositId);
+            if (!deposit) return;
+
+            deposit.status = 'declined';
+            deposit.declineReason = reason;
+            saveDeposits(deposits);
+
+            alert(`❌ Deposit of ₵${deposit.amount} declined.`);
+            loadAdminDashboard();
+        }
+
+        // View screenshot in modal
+        function viewScreenshot(src) {
+            document.getElementById('screenshotImage').src = src;
+            const modal = new bootstrap.Modal(document.getElementById('screenshotModal'));
+            modal.show();
+        }
+
+        // Tab navigation
+        document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+                btn.classList.add('active');
+                document.getElementById(btn.getAttribute('data-tab')).style.display = 'block';
+            });
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
+
+        // Load dashboard on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadAdminDashboard);
+        } else {
+            loadAdminDashboard();
+        }
+
+        // Refresh every 10 seconds
+        setInterval(loadAdminDashboard, 10000);
+    </script>
+</body>
+</html>
